@@ -2,6 +2,7 @@ let a: number;
 let b: boolean;
 let c: string;
 
+let d: Array<string>;
 interface BasicUser {
     name: string;
     surname: string;
@@ -24,6 +25,14 @@ const user2: BasicUser = {
     isAdmin: false,
     permissions:['manager', 'operator', 'instructor'],
 };
+
+const usersArray: BasicUser[] = [user, user, user];
+
+function getFirst<T>(arrayUser: T[]): T {
+    return arrayUser[0];
+}
+
+getFirst<BasicUser>(usersArray)
 
 type MathFunc = (a: number, b: number) => number;
 
