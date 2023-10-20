@@ -3,27 +3,30 @@ let b: boolean;
 let c: string;
 
 let d: Array<string>;
-interface BasicUser {
+
+type Permissions  = 'admin' | 'user' | 'manager';
+
+type BasicUser<A = boolean, P = string[]> = {
     name: string;
     surname: string;
     age: number;
-    isAdmin: boolean;
-    permissions?: string[]; 
-}
+    isAdmin: A;
+    permissions?: P[]; 
+};
 
-const user: BasicUser = {
+type AdvanceUser = {
+    account: number;
+};
+
+type FullUser<A = boolean, P = string[]> = BasicUser<A,P> & AdvanceUser;
+
+const user: FullUser<boolean, Permissions> = {
     name: 'Ali',
     surname: 'Sajjad',
     age: 31,
     isAdmin: true,
-};
-
-const user2: BasicUser = {
-    name: 'Bilal',
-    surname: 'Ikram',
-    age: 31,
-    isAdmin: false,
-    permissions:['manager', 'operator', 'instructor'],
+    account:20,
+    permissions: ['admin', 'user', 'manager'],
 };
 
 const usersArray: BasicUser[] = [user, user, user];
@@ -34,7 +37,7 @@ function getFirst<T>(arrayUser: T[]): T {
 
 getFirst<BasicUser>(usersArray)
 
-type MathFunc = (a: number, b: number) => number;
+type MathFunc<T = number> = (a: T, b: T) => T;
 
 const mul: MathFunc = (a, b) => a * b;
 const add: MathFunc = (a, b) => a + b;
