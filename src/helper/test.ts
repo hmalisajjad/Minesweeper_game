@@ -1,10 +1,27 @@
-let a: number;
-let b: boolean;
-let c: string;
-
-let d: Array<string>;
-
 type Permissions  = 'admin' | 'user' | 'manager';
+
+interface DapartmentsForPerssion {
+    depName: string;
+    lvl: number;
+}
+
+const DepsForPerms: Record<Permissions, DepartmentsForPermssion> = {
+    admin: {
+        depName: 'security',
+        lvl:10,
+    },
+    user: {
+        depName: 'sales',
+        lvl:5,
+    },
+    manager: {
+        depName: 'sales',
+        lvl:10,
+    },
+    
+}
+
+type TuplePermissions = [Permissions, Permissions];
 
 type BasicUser<A = boolean, P = string[]> = {
     name: string;
@@ -20,7 +37,11 @@ type AdvanceUser = {
 
 type FullUser<A = boolean, P = string[]> = BasicUser<A,P> & AdvanceUser;
 
-const user: FullUser<boolean, Permissions> = {
+type BasicUserReadonly = Readonly<BasicUser>
+type BasicUserRequired = Required<BasicUser>
+type BasicUserPartial = Partial<BasicUser>
+
+const user: FullUser<boolean> = {
     name: 'Ali',
     surname: 'Sajjad',
     age: 31,
@@ -29,13 +50,13 @@ const user: FullUser<boolean, Permissions> = {
     permissions: ['admin', 'user', 'manager'],
 };
 
-const usersArray: BasicUser[] = [user, user, user];
+const usersArray: FullUser<boolean>[]= [user, user, user];
 
 function getFirst<T>(arrayUser: T[]): T {
     return arrayUser[0];
 }
 
-getFirst<BasicUser>(usersArray)
+getFirst<FullUser>(usersArray)
 
 type MathFunc<T = number> = (a: T, b: T) => T;
 
